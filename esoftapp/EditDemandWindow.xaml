@@ -1,0 +1,139 @@
+﻿<Window x:Class="esoftapp.EditDemandWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:esoftapp"
+        mc:Ignorable="d"
+        Title="" Height="500" Width="400">
+    <Window.Resources>
+        <Style x:Key="fields_l" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="fields_сb" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="Padding" Value="5 2"/>
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="fields_tb" TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="Padding" Value="5 2"/>
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="fields_dp" TargetType="DockPanel">
+            <Setter Property="DockPanel.Dock" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Margin" Value="0 0 0 5"/>
+        </Style>
+        <Style x:Key="actionbtns" TargetType="Button">
+            <Setter Property="Background" Value="#04A0FF"/>
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="Foreground" Value="#F7F9F9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="15 10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0 0 5 0"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#0091EA" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#04A0FF" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="False">
+        <TextBlock DockPanel.Dock="Top" Text="Изменение потребности" FontSize="18" FontFamily="Roboto Bold" HorizontalAlignment="Center" Margin="0 20"/>
+        <DockPanel Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Клиент"/>
+            <ComboBox x:Name="client_cb" Style="{StaticResource fields_сb}"/>
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Риэлтор"/>
+            <ComboBox x:Name="agent_cb" Style="{StaticResource fields_сb}" />
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Адрес"/>
+            <ComboBox x:Name="address_cb" Style="{StaticResource fields_сb}" />
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}" >
+            <TextBlock Style="{StaticResource fields_l}" Text="Объект"/>
+            <ComboBox x:Name="type_cb" Style="{StaticResource fields_сb}" SelectionChanged="type_cb_SelectionChanged">
+                <ComboBoxItem>Квартира</ComboBoxItem>
+                <ComboBoxItem>Дом</ComboBoxItem>
+                <ComboBoxItem>Земля</ComboBoxItem>
+            </ComboBox>
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Мин. цена"/>
+            <TextBox x:Name="minprice_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged"/>
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Макс. цена"/>
+            <TextBox x:Name="maxprice_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged"/>
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Мин. площадь"/>
+            <TextBox x:Name="minarea_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged"/>
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Макс. площадь"/>
+            <TextBox x:Name="maxarea_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged"/>
+        </DockPanel>
+        <DockPanel x:Name="minroom_dp" Visibility="Visible" Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Мин. комнат"/>
+            <TextBox x:Name="minroom_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged" Visibility="Visible"/>
+        </DockPanel>
+        <DockPanel x:Name="maxroom_dp" Visibility="Visible" Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Макс. комнат"/>
+            <TextBox x:Name="maxroom_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged" Visibility="Visible"/>
+        </DockPanel>
+        <DockPanel x:Name="minfloor_dp" Visibility="Visible" Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Мин. этаж"/>
+            <TextBox x:Name="minfloor_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged" Visibility="Visible"/>
+        </DockPanel>
+        <DockPanel x:Name="maxfloor_dp" Style="{StaticResource fields_dp}">
+            <TextBlock Style="{StaticResource fields_l}" Text="Макс. этаж"/>
+            <TextBox x:Name="maxfloor_tb" Style="{StaticResource fields_tb}" MaxLength="12" TextChanged="tb_TextChanged" Visibility="Visible"/>
+        </DockPanel>
+        <DockPanel Style="{StaticResource fields_dp}" LastChildFill="False">
+            <Button x:Name="confirm_btn" Style="{StaticResource actionbtns}" Content="Подтвердить" IsDefault="True" Click="confirm_btn_Click" IsEnabled="False"/>
+            <Button x:Name="cancel_btn" Style="{StaticResource actionbtns}" Content="Отмена" IsCancel="True"/>
+        </DockPanel>
+    </DockPanel>
+</Window>

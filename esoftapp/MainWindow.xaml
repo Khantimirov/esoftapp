@@ -1,0 +1,177 @@
+﻿<Window x:Class="esoftapp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:esoftapp"
+        mc:Ignorable="d" Title="" Height="450" Width="800" Icon="/local/icon.png">
+    <Window.Resources>
+        <Style x:Key="leftbtns" TargetType="Button">
+            <Setter Property="Background" Value="#37474F"/>
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="Foreground" Value="#B0BEC5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="10 2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="actionbtns" TargetType="Button">
+            <Setter Property="Background" Value="#04A0FF"/>
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="Foreground" Value="#F7F9F9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="15 10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0 0 5 0"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#0091EA" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#04A0FF" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="Width" Value="480"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="20 20 20 0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="DockPanel.Dock" Value="Top"/>
+            <Setter Property="Padding" Value="8 2"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="select_l" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto Regular"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Left" LastChildFill="False" Background="#37474F">
+            <Image DockPanel.Dock="Top" Source="\local\logo.png" Width="100" Margin="10 10"/>
+            <Button Click="clients_btn_Click" DockPanel.Dock="Top" x:Name="clients_btn" Style="{StaticResource leftbtns}" Content="Клиенты"/>
+            <Button Click="agents_btn_Click" DockPanel.Dock="Top" x:Name="agents_btn" Style="{StaticResource leftbtns}" Content="Риэлторы"/>
+            <Button Click="realestate_btn_Click" DockPanel.Dock="Top" x:Name="realestate_btn" Style="{StaticResource leftbtns}" Content="Недвижимость"/>
+            <Button Click="supplies_btn_Click" DockPanel.Dock="Top" x:Name="supplies_btn" Style="{StaticResource leftbtns}" Content="Предложения"/>
+            <Button Click="demands_btn_Click" DockPanel.Dock="Top" x:Name="demands_btn" Style="{StaticResource leftbtns}" Content="Потребности"/>
+            <Button Click="deals_btn_Click" DockPanel.Dock="Top" x:Name="deals_btn" Style="{StaticResource leftbtns}" Content="Сделки"/>
+            <Button Click="calculations_btn_Click" DockPanel.Dock="Top" x:Name="calculations_btn" Style="{StaticResource leftbtns}" Content="Отчисления"/>
+        </DockPanel>
+        <DockPanel>
+            <DockPanel x:Name="clients_panel" DockPanel.Dock="Top" Visibility="Hidden">
+                <TextBox x:Name="clients_tb" TextChanged="clients_tb_TextChanged"/>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="20 10 20 0">
+                    <Button x:Name="clientadd_btn" Content="Добавить" Style="{StaticResource actionbtns}" Click="clientadd_btn_Click"/>
+                    <Button x:Name="clientedit_btn" Content="Изменить" Style="{StaticResource actionbtns}" Click="clientedit_btn_Click" IsEnabled="False"/>
+                    <Button x:Name="clientdelete_btn" Content="Удалить" Style="{StaticResource actionbtns}" Click="clientdelete_btn_Click" IsEnabled="False"/>
+                    <TextBlock x:Name="clientselected_l" Style="{StaticResource select_l}" Text="Не выбрано"/>
+                </DockPanel>
+                <DataGrid x:Name="clients_dg" DockPanel.Dock="Top" Margin="20 10" FontSize="14"/>
+            </DockPanel>
+            <DockPanel x:Name="agents_panel" DockPanel.Dock="Top" Visibility="Hidden">
+                <TextBox x:Name="agents_tb" TextChanged="agents_tb_TextChanged"/>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="20 10 20 0">
+                    <Button x:Name="agentadd_btn" Content="Добавить" Style="{StaticResource actionbtns}" Click="agentadd_btn_Click"/>
+                    <Button x:Name="agentedit_btn" Content="Изменить" Style="{StaticResource actionbtns}" Click="agentedit_btn_Click" IsEnabled="False"/>
+                    <Button x:Name="agentdelete_btn" Content="Удалить" Style="{StaticResource actionbtns}" Click="agentdelete_btn_Click" IsEnabled="False"/>
+                    <TextBlock x:Name="agentselected_l" Style="{StaticResource select_l}" Text="Не выбрано"/>
+                </DockPanel>
+                <DataGrid x:Name="agents_dg" DockPanel.Dock="Top" Margin="20 10" FontSize="14"/>
+            </DockPanel>
+            <DockPanel x:Name="realestate_panel" DockPanel.Dock="Top" Visibility="Visible">
+                <TextBox x:Name="realestate_tb" TextChanged="realestate_tb_TextChanged"/>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="20 10 20 0">
+                    <Button x:Name="realestateadd_btn" Content="Добавить" Style="{StaticResource actionbtns}" Click="realestateadd_btn_Click"/>
+                    <Button x:Name="realestateedit_btn" Content="Изменить" Style="{StaticResource actionbtns}" Click="realestateedit_btn_Click" IsEnabled="False"/>
+                    <Button x:Name="realestatedelete_btn" Content="Удалить" Style="{StaticResource actionbtns}" Click="realestatedelete_btn_Click" IsEnabled="False"/>
+                    <ComboBox x:Name="realestatetype_cb" FontFamily="Roboto Regular" VerticalContentAlignment="Center" SelectionChanged="realestatetype_cb_SelectionChanged">
+                        <ComboBoxItem IsSelected="True">Все</ComboBoxItem>
+                        <ComboBoxItem>Квартира</ComboBoxItem>
+                        <ComboBoxItem>Дом</ComboBoxItem>
+                        <ComboBoxItem>Земля</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock x:Name="realestateselected_l" Style="{StaticResource select_l}" Text="Не выбрано"/>
+                </DockPanel>
+                <DataGrid x:Name="realestate_dg" DockPanel.Dock="Top" Margin="20 10" FontSize="14"/>
+            </DockPanel>
+            <DockPanel x:Name="supply_panel" DockPanel.Dock="Top" Visibility="Hidden">
+                <TextBox x:Name="supply_tb" TextChanged="supply_tb_TextChanged"/>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="20 10 20 0">
+                    <Button x:Name="supplyadd_btn" Content="Добавить" Style="{StaticResource actionbtns}" Click="supplyadd_btn_Click"/>
+                    <Button x:Name="supplyedit_btn" Content="Изменить" Style="{StaticResource actionbtns}" Click="supplyedit_btn_Click" IsEnabled="False"/>
+                    <Button x:Name="supplydelete_btn" Content="Удалить" Style="{StaticResource actionbtns}" Click="supplydelete_btn_Click" IsEnabled="False"/>
+                    <TextBlock x:Name="supplyselected_l" Style="{StaticResource select_l}" Text="Не выбрано"/>
+                </DockPanel>
+                <DataGrid x:Name="supply_dg" DockPanel.Dock="Top" Margin="20 10" FontSize="14"/>
+            </DockPanel>
+            <DockPanel x:Name="demands_panel" DockPanel.Dock="Top" Visibility="Hidden">
+                <TextBox x:Name="demand_tb" TextChanged="demands_tb_TextChanged"/>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="20 10 20 0">
+                    <Button x:Name="demandadd_btn" Content="Добавить" Style="{StaticResource actionbtns}" Click="demandadd_btn_Click"/>
+                    <Button x:Name="demandedit_btn" Content="Изменить" Style="{StaticResource actionbtns}" Click="demandedit_btn_Click" IsEnabled="False"/>
+                    <Button x:Name="demanddelete_btn" Content="Удалить" Style="{StaticResource actionbtns}" Click="demanddelete_btn_Click" IsEnabled="False"/>
+                    <TextBlock x:Name="demandselected_l" Style="{StaticResource select_l}" Text="Не выбрано"/>
+                </DockPanel>
+                <DataGrid x:Name="demands_dg" DockPanel.Dock="Top" Margin="20 10" FontSize="14"/>
+            </DockPanel>
+            <DockPanel x:Name="deals_panel" DockPanel.Dock="Top" Visibility="Hidden">
+                <TextBox x:Name="deals_tb" TextChanged="deals_tb_TextChanged"/>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="20 10 20 0">
+                    <Button x:Name="dealadd_btn" Content="Добавить" Style="{StaticResource actionbtns}" Click="dealadd_btn_Click"/>
+                    <Button x:Name="dealedit_btn" Content="Изменить" Style="{StaticResource actionbtns}" Click="dealedit_btn_Click" IsEnabled="False"/>
+                    <Button x:Name="dealdelete_btn" Content="Удалить" Style="{StaticResource actionbtns}" Click="dealdelete_btn_Click" IsEnabled="False"/>
+                    <TextBlock x:Name="dealselected_l" Style="{StaticResource select_l}" Text="Не выбрано"/>
+                </DockPanel>
+                <DataGrid x:Name="deals_dg" DockPanel.Dock="Top" Margin="20 10" FontSize="14"/>
+            </DockPanel>
+            <DockPanel x:Name="calculations_panel" DockPanel.Dock="Top" Visibility="Visible">
+                <ListBox DockPanel.Dock="Top" x:Name="calculations_list" FontFamily="Roboto Regular" FontSize="14">
+                    
+                </ListBox>
+            </DockPanel>
+        </DockPanel>
+    </DockPanel>
+</Window>
